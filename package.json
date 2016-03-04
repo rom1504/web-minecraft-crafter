@@ -1,0 +1,34 @@
+{
+  "name": "web-minecraft-crafter",
+  "version": "1.0.0",
+  "description": "A web interface to minecraft crafter",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify  main.js -o bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rom1504/web-minecraft-crafter.git"
+  },
+  "keywords": [
+    "web",
+    "minecraft",
+    "craft"
+  ],
+  "author": "Romain Beaumont <romain.rom1@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rom1504/web-minecraft-crafter/issues"
+  },
+  "homepage": "https://github.com/rom1504/web-minecraft-crafter#readme",
+  "dependencies": {
+    "jquery": "^2.2.1",
+    "jquery-autocomplete": "^1.2.1",
+    "jquery-ui": "^1.10.5",
+    "minecraft-crafter": "^1.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0"
+  }
+}
