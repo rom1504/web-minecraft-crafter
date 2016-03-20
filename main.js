@@ -1,3 +1,5 @@
+'use strict';
+
 const findItemOrBlockByName=require("minecraft-data")("1.8").findItemOrBlockByName;
 const niceCraft=require("minecraft-crafter").niceCraft;
 const craft=require("minecraft-crafter").craft;
@@ -47,3 +49,30 @@ $("#form").submit(e => {
 
   $("#craftResult").html("<img width='100px' src='"+assets[name].texture+"' />");
 });
+
+
+const InventoryWindow = require('inventory-window');
+const Inventory = require('inventory');
+const ItemPile = require('itempile');
+const ever = require('ever');
+
+const inv = new Inventory(3, 3);
+inv.array[0] = new ItemPile('diamond', 1);
+
+const ucfirst = (s) => s.substr(0, 1).toUpperCase() + s.substring(1);
+
+InventoryWindow.defaultGetTexture = (pile) => assets[pile.item].texture;
+InventoryWindow.defaultGetMaxDamage = (pile) => 80;
+InventoryWindow.defaultGetTooltip = (pile) => ucfirst(pile.item);
+
+const w = new InventoryWindow({
+  inventory: inv
+});
+
+const container = w.createContainer();
+document.body.appendChild(container);
+
+ever(document.body).on('contextmenu', (ev) => ev.preventDefault());
+
+window.w = w;
+

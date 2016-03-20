@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/rom1504/web-minecraft-crafter#readme",
   "dependencies": {
+    "inventory-window": "^1.0.0",
     "jquery": "^2.2.1",
     "jquery-autocomplete": "^1.2.1",
     "jquery-ui": "^1.10.5",
