@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify  main.js -o bundle.js",
-    "publish": "git checkout gh-pages && git merge master && npm run build && git add -f bundle.js && git commit -m 'publish' ; git push origin gh-pages && git checkout master"
+    "publish": "git checkout gh-pages && git merge master && npm run build && git add -f bundle.js && git commit -m 'publish' ; git push origin gh-pages && git checkout master",
+    "start":"beefy main.js:bundle.js 8000"
   },
   "repository": {
     "type": "git",
@@ -24,13 +25,16 @@
   },
   "homepage": "https://github.com/rom1504/web-minecraft-crafter#readme",
   "dependencies": {
+    "inventory-window": "^1.0.0",
     "jquery": "^2.2.1",
     "jquery-autocomplete": "^1.2.1",
     "jquery-ui": "^1.10.5",
     "minecraft-assets": "^1.0.0",
-    "minecraft-crafter": "^1.1.0"
+    "minecraft-crafter": "^1.1.0",
+    "query-string": "^3.0.3"
   },
   "devDependencies": {
+    "beefy": "^2.1.6",
     "browserify": "^13.0.0"
   }
 }
