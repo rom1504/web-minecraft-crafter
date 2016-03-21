@@ -6,6 +6,8 @@ const craft=require("minecraft-crafter").craft;
 const assets=require("minecraft-assets")("1.8.8").textureContent;
 const textureContentArray=require("minecraft-assets")("1.8.8").textureContentArray;
 const $=require("jquery");
+const createRecipe=require("./recipe_window");
+const queryString = require('query-string');
 
 global.jQuery = $;
 
@@ -41,38 +43,33 @@ item.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
   return $li.appendTo(ul);
 };
 
+const textResult=document.createElement("p");
+document.body.appendChild(textResult);
+
+const element = document.createElement("div");
+document.body.appendChild(element);
+
 $("#form").submit(e => {
   e.preventDefault();
+
   const name=$("#item").val();
-
-  $("#result").text(niceCraft(craft({id:findItemOrBlockByName(name).id,count:1})));
-
-  $("#craftResult").html("<img width='100px' src='"+assets[name].texture+"' />");
+  history.pushState(null, null, '#name='+name);
+  displayRecipePath(name);
 });
 
+const parsedHash = queryString.parse(location.hash);
 
-const InventoryWindow = require('inventory-window');
-const Inventory = require('inventory');
-const ItemPile = require('itempile');
-const ever = require('ever');
+if(parsedHash["name"])
+  displayRecipePath(parsedHash["name"]);
 
-const inv = new Inventory(3, 3);
-inv.array[0] = new ItemPile('diamond', 1);
+function displayRecipePath(name) {
+  const recipes=craft({id:findItemOrBlockByName(name).id,count:1});
 
-const ucfirst = (s) => s.substr(0, 1).toUpperCase() + s.substring(1);
+  textResult.textContent=niceCraft(recipes);
 
-InventoryWindow.defaultGetTexture = (pile) => assets[pile.item].texture;
-InventoryWindow.defaultGetMaxDamage = (pile) => 80;
-InventoryWindow.defaultGetTooltip = (pile) => ucfirst(pile.item);
-
-const w = new InventoryWindow({
-  inventory: inv
-});
-
-const container = w.createContainer();
-document.body.appendChild(container);
-
-ever(document.body).on('contextmenu', (ev) => ev.preventDefault());
-
-window.w = w;
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+  recipes.recipesToDo.forEach(recipe => element.appendChild(createRecipe(recipe)));
+}
 
